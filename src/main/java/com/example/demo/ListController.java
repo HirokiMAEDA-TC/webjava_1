@@ -1,47 +1,42 @@
 package com.example.demo;
 
-import java.util.List;
-
-import org.assertj.core.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ListController {
 
-	@GetMapping("/List")
-	public String index(@ModelAttribute("ListForm") ListForm listForm) {
-		return "ListView";		//ListView.htmlを返す。
+	@Autowired
+	private ListService listService;
+	private OrderList orderList;
+	private ListForm listForm;
+
+	@RequestMapping(value="/View", method= RequestMethod.GET)
+	public ModelAndView show(ModelAndView mav) {
+
+		mav.setViewName("ListView");
+		mav.addObject("itemList", listService.getItemList());
+
+		return mav;
+
 	}
-
-	//編集中→Listで値の受け渡しができるようにする
-	@RequestMapping(value="ListService", method=RequestMethod.GET)
-	public String show(Model model) {
-		List<Item> item = ListService.findItems();
-
-		model.addAttribute("itemid", Arrays.asList(itemid.values()));
-
-
-		return "ListView";
-	}
-
-
-
 
 	@RequestMapping(value="/Cart", method=RequestMethod.POST)
-	public String order(
-			@RequestParam(name="itemid") int itemid,
-			@RequestParam(name="num") int num,
-			Model model
-			) {
+	public ModelAndView order(@RequestParam("num") int[] num,
+						ListForm form,
+						ModelAndView mav) {
 
-		model.addAttribute("itemid", itemid);
-		model.addAttribute("num", num);
-		return "Cart";
+		listForm.setNum(num);
+
+		orderList.setOrder(listService.getItemList(), listForm.getNum());
+		mav.setViewName("Cart");
+		mav.addObject("order", orderList.getOrder());
+		//mav.addObject("num", num);
+
+		return mav;
 	}
 }

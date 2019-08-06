@@ -5,7 +5,7 @@
 <title>ListView</title>
 </head>
 <body>
-	<form method="post" action="/Cart" th:object="${ListForm}">
+	<form method="post" action="Cart" th:object="${order}">
 		<table border="1">
 			<tr>
 				<th>アイテムID</th>
@@ -14,17 +14,17 @@
 				<th>個数</th>
 			</tr>
 
-			<tr>
-				<td><input type="text" name="itemid"></td>
-				<td>リンゴ</td>
-				<td>120</td>
+			<tr th:each="item: ${itemList}">
+				<td th:text="${item.itemId}"></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
 				<td><input type="text" name="num" min="0" value="0"></td>
 			</tr>
 		</table>
 
 		<p>注文内容を確定</p>
-		<input type="submit" value="注文">
-	</form>
+			<input type="submit" value="注文">
+		</form>
 
-</body>
+	</body>
 </html>

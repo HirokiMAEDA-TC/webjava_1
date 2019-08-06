@@ -5,25 +5,27 @@
 <title>Cart</title>
 </head>
 <body>
-	<table border="1">
-		<tr>
-			<th>アイテムID</th>
-			<th>商品名</th>
-			<th>価格(円)</th>
-			<th>個数</th>
-		</tr>
-
-		<tr>
-			<td> <p th:text="${itemid}"></p> </td>
-			<td> リンゴ </td>
-			<td> 120 </td>
-			<td> <p th:text="${num}"></p> </td>
-		</tr>
-	</table>
-
-	<p>注文フォームに戻る</p>
-		<input type="submit" value="戻る">
+	<!-- <form method="post" action="/View"> -->
+		<table border="1">
+			<tr>
+				<th>アイテムID</th>
+				<th>商品名</th>
+				<th>価格(円)</th>
+				<th>個数</th>
+			</tr>
 
 
-</body>
+			<tr th:each="order: ${order}">
+				<td th:text="${order.itemId}"></td>
+				<td th:text="${order.name}"></td>
+				<td th:text="${order.price}"></td>
+				<td th:text="${order.num}" ></td>
+			</tr>
+		</table>
+
+		<p>注文フォームに戻る</p>
+			<input type="submit" value="戻る">
+
+		<!-- </form> -->
+	</body>
 </html>
