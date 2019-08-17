@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ListForm {
 
+	private  int itemId;
 	private int num;
-	private int itemId;
 
 	public int getItemId() {
 		return itemId;

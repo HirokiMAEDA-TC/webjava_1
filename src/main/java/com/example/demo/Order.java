@@ -1,7 +1,23 @@
 package com.example.demo;
 
 public class Order {
-	public int itemId;
-	public int num;
 
+	private int itemId;
+	private int num;
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 }
